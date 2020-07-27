@@ -1,10 +1,12 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import * as todoActions from '../actions/todo.actions';
+import { create, modify, archive, delete, check } from './actions/todo.actions';
 
 export interface ITodo {
   id: string
   name: string
   detail: number
+  position: number
 }
 
 class Todo {
@@ -46,4 +48,39 @@ class Todo {
 export interface State {
   listOfTodos: array<Todo>;
   selectedTodo: Todo;
+}
+
+export const initialState = { id: 0};
+
+export fonction (messages, message) =>
+  messages.map(m =>
+    m.id === message.id ? Object.assign({}, message) : message
+  );
+
+const _todoReducer = createReducer(initialState,
+  on(create, (state, obj) => {...state,
+    id: Maths.ramdom() * 1000
+    name: obj.name
+  }),
+  on(describe, (state, obj) => {...state,
+    detail: obj.detail
+  }),
+  on(archive, state => {...state, status: 'archived' }),
+  on(remove, state => {...state, status: 'removed' }),
+  on(remove, state => {...state, status: 'finished' }),
+  on(save, state => [...listOfTodos, selectedTodo]),
+  on(update, state => {
+    const list = listOfTodos.map(m =>
+        m.id === selectedTodo.id ? Object.assign({}, message) : message
+         );
+    return {...state, listOfTodo: list}
+  });
+  on(switch, state => {
+    const list = listOfTodos.map();
+    [list[position[0]], position[1]] = [list[position[1]], position[0]];
+    return {...state, listOfTodo: list}
+  });
+
+export function counterReducer(state, action) {
+  return _counterReducer(state, action);
 }

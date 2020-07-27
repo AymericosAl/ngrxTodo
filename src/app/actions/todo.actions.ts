@@ -8,12 +8,12 @@ export const modify = createAction(
   props<{ id: number }>()
 );
 
-export const archiver = createAction(
+export const archive = createAction(
   '[Todo Archive] Create',
   props<{ id: number }>()
 );
 
-export const delete = createAction(
+export const remove = createAction(
   '[Todo Delete] Create',
   props<{ id: number }>()
 );
