@@ -1,7 +1,7 @@
 import { createReducer, on, State } from '@ngrx/store';
 import * as todoActions from '../actions/todo.actions';
 import { create, modify, changeStatus, save, swap } from '../actions/todo.actions';
-import { Todo } from '../todo/todo.model'
+import { Todo } from '../todo/todo.model';
 
 export const initialState = {
     listOfTodos: [],
@@ -14,18 +14,18 @@ export const initialState = {
 };
 
 const _todoReducer = createReducer(initialState,
-  on(todoActions.create, ( state,{_title,_position}) => (
+  on(todoActions.create, ( state, {_title, _position}) => (
     {...state,
-    _title: _title
+    _title
     })
   ),
   on(todoActions.describe, (state, obj) => ({...state,
     _detail: obj._detail
   })),
   on(todoActions.changeStatus, (state, {_status}) => ({...state,
-    _status: _status
+    _status
   })),
-  //on(todoActions.changeStatus, (state, status) => ({...state, _status: status })),
+  // on(todoActions.changeStatus, (state, status) => ({...state, _status: status })),
   on(todoActions.save, (state, todo) => (
         {...state,
         listOfTodos: [...state.listOfTodos,
@@ -50,18 +50,18 @@ const _todoReducer = createReducer(initialState,
                 _status: newTodo.getStatus()
             }) : todo
          );
-    return {...state, listOfTodos: list}
+    return {...state, listOfTodos: list};
   }),
   on(todoActions.swap, (state, position) => {
     const list = state.listOfTodos.slice();
     [list[position[0]], position[1]] = [list[position[1]], position[0]];
-    return {...state, listOfTodos: list}
+    return {...state, listOfTodos: list};
   }),
   on(todoActions.todosApollo, (state, {listOfTodos}) => {
-    return {...state, listOfTodos: listOfTodos}
+    return {...state, listOfTodos};
   }),
   on(todoActions.loadError, (state, error) => {
-    return {...state, error: error}
+    return {...state, error};
   })
 );
 

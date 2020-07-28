@@ -1,13 +1,13 @@
 import { createAction, props } from '@ngrx/store';
 
-import { Todo } from '../todo/todo.model'
+import { Todo } from '../todo/todo.model';
 
 export interface ITodo {
-  getId(): number
-  getTitle(): string
-  getDetail(): string
-  getPosition(): number
-  getStatus(): string
+  getId(): number;
+  getTitle(): string;
+  getDetail(): string;
+  getPosition(): number;
+  getStatus(): string;
 }
 
 
