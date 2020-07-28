@@ -1,0 +1,30 @@
+# Use root/example as user/password credentials
+version: "3.5"
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: s1mpl3
+      MYSQL_DATABASE: mnhn_db1
+      MYSQL_USER: ${MONGO_ADMIN:-dryad}
+      MYSQL_PASSWORD: ${MONGO_ADMIN:-pourlanature}
+    ports:
+      - 3306:3306
+    networks:
+      - dbsnetwork
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - dbsnetwork
+
+networks:
+  dbsnetwork:
+    driver: bridge
+    name: dbsnetwork
