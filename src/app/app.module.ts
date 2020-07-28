@@ -6,8 +6,13 @@ import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects'
 import { todoReducer } from './reducers/todo.reducer';
 import { environment } from '../environments/environment';
+import { GraphQLModule } from './graphql.module';
+import { HttpClientModule } from '@angular/common/http';
+import { TodoService } from './service/todo.service'
+import { TodoEffects } from './effects/todo.effects'
 
 @NgModule({
   declarations: [
@@ -22,8 +27,11 @@ import { environment } from '../environments/environment';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    EffectsModule.forRoot([TodoEffects]),
+    GraphQLModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

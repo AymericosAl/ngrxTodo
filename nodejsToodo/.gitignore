@@ -1,6 +1,0 @@
-node_modules
-dist
-mongo-connector.log
-mongo-connector.log.*
-oplog.timestamp
-.vscode

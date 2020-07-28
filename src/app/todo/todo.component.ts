@@ -9,12 +9,22 @@ import { Store} from '@ngrx/store'
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todos$: Observable<Todo[]> = this.store.select(state => state.todos);
-  constructor(private store: Store<{ todos: Todo[] }>) { }
+  todos$: Observable<any> = this.store.select('todos')
+  listOfTodos: Todo[] = [];
+  selectedTodo: Todo;
+ constructor(private store: Store<{ todos: Todo[] }>) {
+    this.todos$.subscribe((data) => {
+        this.listOfTodos = data.listOfTodos;
+        this.selectedTodo = new Todo(data);
+        console.log(this.listOfTodos)
+        console.log(this.selectedTodo)
 
-  // snippet from MyDataViewer.component.ts
+    })
+ }
+
   ngOnInit(): void {
-    this.store.dispatch({ type: 'INIT_DATA' });
+    this.store.dispatch({ type: '[Todo Load Page] Load Todos' });
+    console.log(this.todos$)
   }
 
 }

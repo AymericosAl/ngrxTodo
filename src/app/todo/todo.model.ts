@@ -6,12 +6,12 @@ export class Todo implements ITodo {
             return this._id;
         }
 
-    private _name: string = '';
-    public getName() {
-            return this._name;
+    private _title: string = '';
+    public getTitle() {
+            return this._title;
         }
-    set name(value: string) {
-        this._name = value;
+    set title(value: string) {
+        this._title = value;
     }
 
     private _detail: string = '';
@@ -46,12 +46,15 @@ export class Todo implements ITodo {
         this._position = value;
     }
 
-    constructor(obj: any){
-        this._id = obj._id;
-        this._name = obj._name;
-        if(!obj._detail) {
-            this._detail = this._name;
+    constructor({_id, _title, _detail, _position, _limit, _status}){
+        this._id = _id;
+        this._title = _title;
+        if(!_detail) {
+            this._detail = _title;
         }
+        this._position = _position;
+        this._limit = _limit;
+        this._status = _status;
     }
 
 }

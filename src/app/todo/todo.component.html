@@ -4,6 +4,6 @@
     <div><button>new try</button></div>
 </div>
 
-<div class="todo__flex todo__cardContainer">
-
+<div class="todo__flex todo__cardContainer" *ngFor="let todo of listOfTodos">
+    <p>{{todo.title}}</p>
 </div>

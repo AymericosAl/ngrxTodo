@@ -4,7 +4,7 @@ import { Todo } from '../todo/todo.model'
 
 export interface ITodo {
   getId(): number
-  getName(): string
+  getTitle(): string
   getDetail(): string
   getPosition(): number
   getStatus(): string
@@ -13,7 +13,7 @@ export interface ITodo {
 
 export const create = createAction(
   '[Todo Create] Create',
-    props<{_name: string, _position: number}>()
+    props<{_title: string, _position: number}>()
 );
 
 export const describe = createAction(
@@ -41,4 +41,18 @@ export const save = createAction(
 export const swap = createAction(
   '[Todo Modify] switch with other Todo',
   props<{ _id: number }>()
+);
+
+export const load = createAction(
+  '[Todo Load Page] Load Todos'
+);
+
+export const todosApollo = createAction(
+  '[Todo Apollo] Todos Loaded Success',
+  props<{ listOfTodos: Todo[] }>()
+);
+
+export const loadError = createAction(
+  '[Todo Load Error] Error',
+  props<{ error: string }>()
 );
