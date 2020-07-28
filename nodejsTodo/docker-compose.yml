@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+  postse_backcountry:
+    image: postse_backcountry
+    build: .
+    ports:
+      - "7501:7501"
+      - "7503:7503"
+      - "9229:9229"
+    networks:
+      - dbsnetwork
+    environment:
+      - DEBUGGER_CHROME=${DEBUGGER_CHROME}
+      - MONGO_ADMIN=${MONGO_ADMIN:-dryad}
+      - MONGO_PASS=${MONGO_PASSWORD:-pourlanature}
+    env_file:
+      - ./.env${NODE_ENV}
+
+networks:
+  dbsnetwork:
+    external: true
