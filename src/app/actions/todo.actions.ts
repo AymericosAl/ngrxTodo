@@ -1,41 +1,44 @@
 import { createAction, props } from '@ngrx/store';
 
+import { Todo } from '../todo/todo.model'
+
+export interface ITodo {
+  _id: number
+  _name: string
+  _detail: string
+  _position: number
+  _status: string
+}
+
+
 export const create = createAction(
   '[Todo Create] Create',
-  props<{ id: number }>()
-);
-
-export const modify = createAction(
-  '[Todo Modify] Create',
-  props<{ id: number }>()
+    props<{_name: string, _position: number}>()
 );
 
 export const describe = createAction(
   '[Todo Modify] Describe',
-  props<{ id: number, detail: string }>()
+  props<{ _id: number, _detail: string }>()
 );
 
-export const archive = createAction(
-  '[Todo Archive] Create',
-  props<{ id: number }>()
+
+export const modify = createAction(
+  '[Todo Modify] Create',
+  props<ITodo>()
 );
 
-export const remove = createAction(
-  '[Todo Delete] Create',
-  props<{ id: number }>()
-);
-
-export const check = createAction(
-  '[Todo Check] Checks',
-  props<{ id: number }>()
+// Remove, Check (finished),
+export const changeStatus = createAction(
+  '[Todo Archive] Change Status',
+  props<{_status: string}>()
 );
 
 export const save = createAction(
   '[Todo Modify] save in BDD',
-  props<{ id: number }>()
+  props<ITodo>()
 );
 
 export const swap = createAction(
   '[Todo Modify] switch with other Todo',
-  props<{ id: number }>()
+  props<{ _id: number }>()
 );
