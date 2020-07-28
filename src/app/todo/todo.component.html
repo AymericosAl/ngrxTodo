@@ -1,9 +1,26 @@
-<div class="todo__flex todo__buttonContainer">
+<!-- <div class="todo__flex todo__buttonContainer">
     <div><button>just do it</button></div>
     <div><button>done</button></div>
     <div><button>new try</button></div>
-</div>
+</div> -->
 
 <div class="todo__flex todo__cardContainer" *ngFor="let todo of listOfTodos">
-    <p>{{todo.title}}</p>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{todo.title}}</mat-card-title>
+            <mat-card-subtitle>{{todo.limit}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p *ngIf="todo.status">{{todo.status }}</p>
+            <p *ngIf="todo.detail">{{todo.detail }}</p>
+            <p *ngIf="todo.limit">{{todo.limit }}</p>
+            <p *ngIf="todo.position">{{todo.position }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>Just Do It</button>
+            <button mat-button>CHECK</button>
+            <button mat-button>DONE</button>
+            <button mat-button>Detail</button>
+        </mat-card-actions>
+    </mat-card>
 </div>

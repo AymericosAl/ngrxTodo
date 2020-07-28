@@ -12,7 +12,10 @@ import { environment } from '../environments/environment';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TodoService } from './service/todo.service'
-import { TodoEffects } from './effects/todo.effects'
+import { TodoEffects } from './effects/todo.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +33,8 @@ import { TodoEffects } from './effects/todo.effects'
     EffectsModule.forRoot([TodoEffects]),
     GraphQLModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]
