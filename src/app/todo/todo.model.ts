@@ -1,36 +1,49 @@
+import {ITodo} from '../actions/todo.actions'
 
-export interface ITodo {
-  _id: number
-  _name: string
-  _detail: string
-  _position: number
-}
-
-export class Todo {
+export class Todo implements ITodo {
     private _id: number;
-    _position: number
+    public getId() {
+            return this._id;
+        }
+
     private _name: string = '';
-    get name(): string {
-        return this._name;
-    }
+    public getName() {
+            return this._name;
+        }
     set name(value: string) {
         this._name = value;
     }
 
     private _detail: string = '';
-    get detail(): string {
-        return this._detail;
-    }
+    public getDetail() {
+            return this._detail;
+        }
     set detail(value: string) {
         this._detail = value;
     }
 
     private _limit: Date = new Date();
-    get limit(): Date {
+    public getLimit(): Date {
         return this._limit;
     }
     set limit(value: Date) {
         this._limit = value;
+    }
+
+    private _status: string = 'draft';
+    public getStatus(): string {
+        return this._status;
+    }
+    set status(value: string) {
+        this._status = value;
+    }
+
+    private _position: number = 0;
+    public getPosition(): number {
+        return this._position;
+    }
+    set position(value: number) {
+        this._position = value;
     }
 
     constructor(obj: any){

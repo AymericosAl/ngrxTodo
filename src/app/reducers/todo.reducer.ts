@@ -30,11 +30,11 @@ const _todoReducer = createReducer(initialState,
         {...state,
         listOfTodos: [...state.listOfTodos,
             {
-                _id: todo._id,
-                _name: todo._name,
-                _detail: todo._detail,
-                _position: todo._position,
-                _status: todo._status
+                _id: todo.getId(),
+                _name: todo.getName(),
+                _detail: todo.getDetail(),
+                _position: todo.getPosition(),
+                _status: todo.getStatus()
             }
         ]
     })
@@ -43,11 +43,11 @@ const _todoReducer = createReducer(initialState,
     const list = state.listOfTodos.map(todo =>
         todo.id === state._id ? Object.assign({},
             {
-                _id: newTodo._id,
-                _name: newTodo._name,
-                _detail: newTodo._detail,
-                _position: newTodo._position,
-                _status: newTodo._status
+                _id: newTodo.getId(),
+                _name: newTodo.getName(),
+                _detail: newTodo.getDetail(),
+                _position: newTodo.getPosition(),
+                _status: newTodo.getStatus()
             }) : todo
          );
     return {...state, listOfTodos: list}

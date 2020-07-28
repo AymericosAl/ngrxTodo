@@ -3,11 +3,11 @@ import { createAction, props } from '@ngrx/store';
 import { Todo } from '../todo/todo.model'
 
 export interface ITodo {
-  _id: number
-  _name: string
-  _detail: string
-  _position: number
-  _status: string
+  getId(): number
+  getName(): string
+  getDetail(): string
+  getPosition(): number
+  getStatus(): string
 }
 
 
