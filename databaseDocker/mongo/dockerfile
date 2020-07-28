@@ -1,0 +1,7 @@
+FROM mongo
+ENV MONGO_INITDB_ROOT_USERNAME ${MONGO_ADMIN}
+ENV MONGO_INITDB_ROOT_PASSWORD ${MONGO_PASSWORD}
+ENV MONGO_INITDB_DATABASE "avalancheMongodb"
+
+ADD setup.js /docker-entrypoint-initdb.d/
+CMD ["mongod"]

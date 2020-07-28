@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  mongo:
+    image: mongo
+    build:
+      context: ./
+    ports:
+      - "27017:27017"
+    networks:
+      - dbsnetwork
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ADMIN:-dryad}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD:-pourlanature}
+      - MONGO_INITDB_DATABASE=avalancheMongodb
+
+networks:
+  dbsnetwork:
+    driver: bridge
+    name: dbsnetwork
