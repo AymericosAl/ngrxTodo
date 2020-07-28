@@ -37,7 +37,6 @@ export const typeDefs = gql`
     status: STATUS
   }
 
-
   enum STATUS {
     DRAFT
     SAVE

@@ -14,23 +14,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { TodoService } from './service/todo.service';
 import { TodoEffects } from './effects/todo.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TodoComponent
-  ],
+  declarations: [AppComponent, TodoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({ todos: todoReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
+      logOnly: environment.production // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([TodoEffects]),
     GraphQLModule,
@@ -45,4 +42,4 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [TodoService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

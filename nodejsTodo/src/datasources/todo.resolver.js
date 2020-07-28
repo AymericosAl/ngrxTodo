@@ -3,10 +3,9 @@ import { ObjectID } from 'mongodb'
 
 export const findOneTodo = (params) => {
   return new Promise(function (resolve, reject) {
-
     getDb()
       .collection('Todo')
-      .find({_id: ObjectID(params._id)})
+      .find({ _id: ObjectID(params._id) })
       .limit(1)
       .toArray(function (err, result) {
         err ? reject(err) : resolve(result[0])

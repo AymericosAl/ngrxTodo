@@ -1,7 +1,7 @@
 import {
   findOneTodo,
   findTodos,
-  insertOneTodo
+  insertOneTodo,
 } from '../datasources/Todo.resolver'
 
 // Todo
@@ -10,13 +10,14 @@ export const queryTodo = {
     let Todo = await findOneTodo(params)
     // If try did not succeed, creating a new Todo
     if (!Todo && params.user) {
-      return await insertOneTodo(params);
+      return await insertOneTodo(params)
     }
-    return Todo;
+    return Todo
   },
 
   findTodos: async (object, params, ctx, resolveInfo) => {
-    return await findTodos({username: "Johnny"})}
+    return await findTodos({ username: 'Johnny' })
+  },
 }
 
 export const mutationTodo = {
