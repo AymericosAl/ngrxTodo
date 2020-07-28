@@ -14,8 +14,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { TodoService } from './service/todo.service'
 import { TodoEffects } from './effects/todo.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,11 @@ import { MatCardModule } from '@angular/material/card';
     GraphQLModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatInputModule,
+    MatListModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

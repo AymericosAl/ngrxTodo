@@ -16,7 +16,6 @@ export const initialState = {
 const _todoReducer = createReducer(initialState,
   on(todoActions.create, ( state,{_title,_position}) => (
     {...state,
-    _id: Math.random() * 1000,
     _title: _title
     })
   ),

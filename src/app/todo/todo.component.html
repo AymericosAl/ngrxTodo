@@ -4,6 +4,18 @@
     <div><button>new try</button></div>
 </div> -->
 
+<form [formGroup]="FG_todoCreate">
+    <mat-form-field appearance="standard">
+       <mat-label>CREATE A TODO</mat-label>
+       <input matInput  formControlName="title">
+       <mat-hint>Go to the market</mat-hint>
+       <mat-error *ngIf="FG_todoCreate.hasError('required')">
+             Email is <strong>required</strong>
+          </mat-error>
+        <button type="button" mat-button (click)="onSubmit()">Just Do It</button>
+     </mat-form-field>
+</form>
+
 <div class="todo__flex todo__cardContainer" *ngFor="let todo of listOfTodos">
     <mat-card>
         <mat-card-header>
