@@ -2,6 +2,7 @@ This project is a todo list made with different tech.
 
 STEP 1
 Database
+go to database0/sql and run `docker-compose up`
 go to database0/mongodb and run `docker-compose up`
 
 STEP 2
