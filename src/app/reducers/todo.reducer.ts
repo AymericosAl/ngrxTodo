@@ -13,24 +13,24 @@ export const initialState = {
   listOfTodos: [],
   _id: 0,
   _title: '',
-  _detail: '',
-  _position: 0,
-  _status: '',
+  detail: '',
+  position: 0,
+  status: '',
   _error: ''
 };
 
 const _todoReducer = createReducer(
   initialState,
-  on(todoActions.create, (state, { _title, _position }) => ({
+  on(todoActions.create, (state, { _title, position }) => ({
     ...state,
     _title
   })),
   on(todoActions.describe, (state, obj) => ({
     ...state,
-    _detail: obj._detail
+    detail: obj.detail
   })),
-  on(todoActions.changeStatus, (state, { _status }) => ({ ...state, _status })),
-  // on(todoActions.changeStatus, (state, status) => ({...state, _status: status })),
+  on(todoActions.changeStatus, (state, { status }) => ({ ...state, status })),
+  // on(todoActions.changeStatus, (state, status) => ({...state, status: status })),
   on(todoActions.save, (state, todo) => ({
     ...state,
     listOfTodos: [
@@ -38,9 +38,9 @@ const _todoReducer = createReducer(
       {
         _id: todo.getId(),
         _title: todo.getTitle(),
-        _detail: todo.getDetail(),
-        _position: todo.getPosition(),
-        _status: todo.getStatus()
+        detail: todo.getDetail(),
+        position: todo.getPosition(),
+        status: todo.getStatus()
       }
     ]
   })),
@@ -52,9 +52,9 @@ const _todoReducer = createReducer(
             {
               _id: newTodo.getId(),
               _title: newTodo.getTitle(),
-              _detail: newTodo.getDetail(),
-              _position: newTodo.getPosition(),
-              _status: newTodo.getStatus()
+              detail: newTodo.getDetail(),
+              position: newTodo.getPosition(),
+              status: newTodo.getStatus()
             }
           )
         : todo

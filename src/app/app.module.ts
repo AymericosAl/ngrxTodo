@@ -18,7 +18,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {     CreateTodo } from './service/todo.service'
 
 @NgModule({
   declarations: [AppComponent, TodoComponent],
@@ -40,7 +39,7 @@ import {     CreateTodo } from './service/todo.service'
     ReactiveFormsModule,
     FormsModule,
   ],
-  providers: [TodoService, CreateTodo],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

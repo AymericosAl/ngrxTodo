@@ -20,7 +20,6 @@ export const findTodos = (Todos) => {
       .find(Todos)
       .limit(150)
       .toArray(function (err, result) {
-        console.log(result)
         err ? reject(err) : resolve(result)
       })
   })

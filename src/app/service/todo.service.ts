@@ -15,52 +15,68 @@ const FIND_TODOS = gql`
   }
 `;
 
-@Injectable()
-export class CreateTodo extends Mutation {
-  document = gql`
-    mutation mutationCreateTodo($todo: TodoInput) {
-      CreateTodo(todo: $todo) {
-
-            _id
-
-      }
+const documentCreate = gql`
+  mutation mutationCreateTodo($todo: TodoInput) {
+    CreateTodo(todo: $todo) {
+      _id
     }
-  `;
-}
+  }
+`;
 
-type Response = {
-    findTodos: Todo[];
+type ResponseQuery = {
+  findTodos: Todo[];
+};
+
+type ResponseMutation = {
+  CreateTodo: { _id: number };
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  constructor(private apollo: Apollo, private CreateTodo: CreateTodo) {
-    this.createTodo('Un Titre').subscribe((data) => {console.log(data)})
-}
+  constructor(private apollo: Apollo) {}
 
-  findTodos(): Observable<any> {
+  findTodos(): Observable<Todo[]> {
     return this.apollo
-      .watchQuery<Response>({ query: FIND_TODOS })
-      .valueChanges.pipe(map(({data}) => {
-            return data.findTodos
-        }));
+      .watchQuery<ResponseQuery>({
+        query: FIND_TODOS,
+        variables: { username: 'Johnny' }
+      })
+      .valueChanges.pipe(
+        map(({ data }) => {
+          return data.findTodos;
+        })
+      );
   }
 
-
-
-    createTodo(title: string) {
-        return this.CreateTodo.mutate({
-            todo: {
-                title: title,
-                detail: '',
-                position: 0,
-                limit: 0,
-                date: 0
-            }
-            //,
-            //refetchQueries: [{query: FIND_TODOS }]
-        })
-    }
+  createTodo(title: string): void {
+    const todo = {
+      title,
+      detail: '',
+      position: null,
+      limit: null,
+      date: null,
+      status: ''
+    };
+    this.apollo
+      .mutate<ResponseMutation>({
+        mutation: documentCreate,
+        variables: {
+          todo
+        },
+        update: (store, { data }) => {
+          const todoFromDB = new Todo(data.CreateTodo._id).setFromBDD(todo);
+          // Read the data from our cache for this query.
+          const queryCache = store.readQuery<ResponseQuery>({
+            query: FIND_TODOS,
+            variables: { username: 'Johnny' }
+          });
+          queryCache.findTodos = [...queryCache.findTodos, todoFromDB];
+          // Write our data back to the cache.
+          store.writeQuery({ query: FIND_TODOS, data });
+        }
+      })
+      .subscribe();
+  }
 }

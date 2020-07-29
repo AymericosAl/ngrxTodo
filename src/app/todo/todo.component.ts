@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as TodoActions from '../actions/todo.actions';
-
+import { TodoService } from '../service/todo.service';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
@@ -15,32 +15,33 @@ export class TodoComponent implements OnInit {
   listOfTodos: Todo[] = [];
   selectedTodo: Todo;
 
-  FG_todoCreate = new FormGroup({
+  fGTodoCreate = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(2)])
   });
 
   get first(): any {
-    return this.FG_todoCreate.get('title');
+    return this.fGTodoCreate.get('title');
   }
 
   onSubmit(): void {
     this.store.dispatch({
       type: '[Todo Create] Create',
-      _title: this.FG_todoCreate.value.title
+      title: this.fGTodoCreate.value.title
     });
+    this.todoService.createTodo(this.fGTodoCreate.value.title);
   }
 
-  constructor(private store: Store<{ todos: Todo[] }>) {
+  constructor(
+    private store: Store<{ todos: Todo[] }>,
+    private todoService: TodoService
+  ) {
     this.todos$.subscribe(data => {
       this.listOfTodos = data.listOfTodos;
       this.selectedTodo = new Todo(data);
-      console.log(this.listOfTodos);
-      console.log(this.selectedTodo);
     });
   }
 
   ngOnInit(): void {
     this.store.dispatch({ type: '[Todo Load Page] Load Todos' });
-    console.log(this.todos$);
   }
 }

@@ -23,6 +23,7 @@ export const queryTodo = {
 export const mutationTodo = {
   CreateTodo: async (object, params, ctx, resolveInfo) => {
     const { todo } = params
+    console.log('wow', params)
     todo.username = 'Johnny'
     return await insertOneTodo(todo)
   },

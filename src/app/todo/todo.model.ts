@@ -1,59 +1,61 @@
 import { ITodo } from '../actions/todo.actions';
 
 export class Todo implements ITodo {
-  set title(value: string) {
-    this._title = value;
-  }
-  set detail(value: string) {
-    this._detail = value;
-  }
-  set limit(value: Date) {
-    this._limit = value;
-  }
-  set status(value: string) {
-    this._status = value;
-  }
-  set position(value: number) {
-    this._position = value;
+  constructor(_id) {
+    this._id = _id;
   }
 
-  constructor({ _id, _title, _detail, _position, _limit, _status }) {
-    this._id = _id;
-    this._title = _title;
-    if (!_detail) {
-      this._detail = _title;
-    }
-    this._position = _position;
-    this._limit = _limit;
-    this._status = _status;
-  }
   private _id: number;
 
-  private _title = '';
+  private title = '';
 
-  private _detail = '';
+  private detail = '';
 
-  private _limit: Date = new Date();
+  private limit: Date = new Date();
 
-  private _status = 'draft';
+  private status = 'draft';
 
-  private _position = 0;
-  public getId() {
+  private position = 0;
+
+  setFromBDD({ title, detail, position, limit, status }): Todo {
+    this.title = title;
+    this.detail = detail;
+    this.position = position;
+    this.limit = limit;
+    this.status = status;
+    return this;
+  }
+  setTitle(value: string): void {
+    this.title = value;
+  }
+  setDetail(value: string): void {
+    this.detail = value;
+  }
+  setLimit(value: Date): void {
+    this.limit = value;
+  }
+  setStatus(value: string): void {
+    this.status = value;
+  }
+  setPosition(value: number): void {
+    this.position = value;
+  }
+  public getId(): number {
     return this._id;
   }
-  public getTitle() {
-    return this._title;
+  public getTitle(): string {
+    return this.title;
   }
-  public getDetail() {
-    return this._detail;
+  public getDetail(): string {
+    return this.detail;
   }
   public getLimit(): Date {
-    return this._limit;
+    return this.limit;
   }
   public getStatus(): string {
-    return this._status;
+    return this.status;
   }
   public getPosition(): number {
-    return this._position;
+    return this.position;
   }
 }

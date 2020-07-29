@@ -32,7 +32,8 @@ export const typeDefs = gql`
     detail: String
     date: Int
     position: Int
-    limit: Int
+    limit: Int,
+    status: String
   }
 
   enum STATUS {
@@ -56,7 +57,8 @@ export const typeDefs = gql`
     detail: String
     date: Int
     position: Int
-    limit: Int
+    limit: Int,
+    status: String
   }
 
   type Query {
