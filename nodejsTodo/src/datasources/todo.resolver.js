@@ -18,7 +18,7 @@ export const findTodos = (Todos) => {
     getDb()
       .collection('Todo')
       .find(Todos)
-      .limit(3)
+      .limit(150)
       .toArray(function (err, result) {
         console.log(result)
         err ? reject(err) : resolve(result)

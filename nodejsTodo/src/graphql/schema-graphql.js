@@ -28,13 +28,11 @@ export const typeDefs = gql`
 
   type Todo {
     _id: ID!
-    Author: User
     title: String
     detail: String
     date: Int
     position: Int
     limit: Int
-    status: STATUS
   }
 
   enum STATUS {
@@ -59,7 +57,6 @@ export const typeDefs = gql`
     date: Int
     position: Int
     limit: Int
-    status: STATUS
   }
 
   type Query {
