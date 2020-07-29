@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import { Todo } from '../todo/todo.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-
 // We use the gql tag to parse our query string into a query document
 const FIND_TODOS = gql`
   query queryFindTodos($username: String) {
@@ -16,20 +15,21 @@ const FIND_TODOS = gql`
   }
 `;
 
+type Response = {
+    findTodos: Todo[];
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  constructor(private apollo: Apollo) {
-    this.findTodos().subscribe(data => {
-      console.log(data);
-    });
-  }
+  constructor(private apollo: Apollo) { }
 
   findTodos(): Observable<any> {
     return this.apollo
-      .watchQuery({ query: FIND_TODOS })
-      .valueChanges.pipe(map(({ data }) => data['findTodos']));
-    //return of([new Todo({})])
+      .watchQuery<Response>({ query: FIND_TODOS })
+      .valueChanges.pipe(map(({data}) => {
+            return data.findTodos
+        }));
   }
 }
