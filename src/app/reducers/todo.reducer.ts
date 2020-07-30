@@ -26,32 +26,9 @@ export const initialState = {
   _error: ''
 };
 
-export function selection(
-  state,
-  { _id, title, detail, position, status, _error }
-) {
-  state._id = _id;
-  state.title = title;
-  state.detail = detail;
-  state.position = position;
-  state.status = status;
-  state._error = _error;
-}
-
 export function findAndReplaceInArray(state, newTodo): Todo[] {
   return state.listOfTodos.map((todo: Todo) =>
-    todo.getId() === state._id
-      ? Object.assign(
-          {},
-          {
-            _id: newTodo.getId(),
-            title: newTodo.getTitle(),
-            detail: newTodo.getDetail(),
-            position: newTodo.getPosition(),
-            status: newTodo.getStatus()
-          }
-        )
-      : todo
+    todo._id === state._id ? Object.assign({}, newTodo) : todo
   );
 }
 
@@ -75,9 +52,9 @@ const _todoReducer = createReducer(
   })),
   on(todoActions.changeStatusApollo, (state, { todo }) => {
     // ListOfTodos being change by the Apollo Cache
-    return { ...state, listOfTodos: findAndReplaceInArray(state, todo) };
+    return { ...state, _id: todo._id, title: todo.title, status: todo.status };
   }),
-  on(todoActions.changeStatusError, (state, {error}) => ({
+  on(todoActions.changeStatusError, (state, { error }) => ({
     ...state,
     _error: error
   })),
@@ -98,18 +75,9 @@ const _todoReducer = createReducer(
     ...state,
     ...detail
   })),
-  on(todoActions.saveApollo, (state, { todo }) => ({
+  on(todoActions.saveApollo, (state, todo) => ({
     ...state,
-    listOfTodos: [
-      ...state.listOfTodos,
-      {
-        _id: todo.getId(),
-        _title: todo.getTitle(),
-        detail: todo.getDetail(),
-        position: todo.getPosition(),
-        status: todo.getStatus()
-      }
-    ]
+    listOfTodos: [...state.listOfTodos, todo]
   })),
   on(todoActions.saveError, (state, { error }) => ({
     ...state,

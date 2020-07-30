@@ -35,3 +35,19 @@ export const insertOneTodo = async (Todo) => {
       })
   })
 }
+
+export const updateOneTodo = async (Todo) => {
+  const { _id, status, detail, title } = Todo
+  return new Promise(function (resolve, reject) {
+    // @Note: this is a must to insert the first insertOneMet. (to upfacto) :)
+    getDb()
+      .collection('Todo')
+      .updateOne(
+        { _id: ObjectID(Todo._id) },
+        { $set: { title: title, status: status, detail: detail } },
+        function (err, result) {
+          err ? reject(err) : resolve(Todo)
+        }
+      )
+  })
+}

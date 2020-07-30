@@ -36,11 +36,16 @@ export class TodoComponent implements OnInit {
     private todoService: TodoService
   ) {
     this.todos$.subscribe(data => {
-      this.listOfTodos = data.listOfTodos;
+      this.listOfTodos = data.listOfTodos.map(todo =>
+        new Todo(todo._id).setFromBDD(todo)
+      );
       this.selectedTodo = new Todo(data);
     });
   }
-
+  changeStatus(todo: Todo, status: string): void {
+    todo.status = status;
+    this.todoService.updateTodo(todo);
+  }
   ngOnInit(): void {
     this.store.dispatch({ type: '[Todo Load Page] Load Todos' });
   }

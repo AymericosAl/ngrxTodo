@@ -11,6 +11,7 @@ const FIND_TODOS = gql`
       _id
       title
       detail
+      status
     }
   }
 `;
@@ -23,12 +24,21 @@ const documentCreate = gql`
   }
 `;
 
+const documentUpdate = gql`
+  mutation mutationUpdateTodo($todo: TodoInput) {
+    UpdateTodo(todo: $todo) {
+      _id
+    }
+  }
+`;
+
 type ResponseQuery = {
   findTodos: Todo[];
 };
 
 type ResponseMutation = {
   CreateTodo: { _id: number };
+  UpdateTodo: { _id: number };
 };
 
 @Injectable({
@@ -78,5 +88,28 @@ export class TodoService {
         }
       })
       .subscribe();
+  }
+
+  updateTodo(todo: Todo): void {
+    this.apollo.mutate<ResponseMutation>({
+      mutation: documentUpdate,
+      variables: {
+        todo
+      },
+      update: (store, { data }) => {
+        const todoFromDB = new Todo(data.UpdateTodo._id).setFromBDD(todo);
+        // Read the data from our cache for this query.
+        const queryCache = store.readQuery<ResponseQuery>({
+          query: FIND_TODOS,
+          variables: { username: 'Johnny' }
+        });
+        const todos: Todo[] = queryCache.findTodos.map(t => {
+          return todoFromDB._id === t._id ? todoFromDB : t;
+        });
+        queryCache.findTodos = todos;
+        // Write our data back to the cache.
+        store.writeQuery({ query: FIND_TODOS, data });
+      }
+    });
   }
 }

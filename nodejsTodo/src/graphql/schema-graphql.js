@@ -32,7 +32,7 @@ export const typeDefs = gql`
     detail: String
     date: Int
     position: Int
-    limit: Int,
+    limit: Int
     status: String
   }
 
@@ -46,6 +46,7 @@ export const typeDefs = gql`
 
   type Mutation {
     CreateTodo(todo: TodoInput): Todo
+    UpdateTodo(todo: TodoInput): Todo
   }
 
   input AuthorInput {
@@ -53,11 +54,12 @@ export const typeDefs = gql`
   }
 
   input TodoInput {
+    _id: ID
     title: String
     detail: String
     date: Int
     position: Int
-    limit: Int,
+    limit: Int
     status: String
   }
 

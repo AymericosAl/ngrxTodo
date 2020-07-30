@@ -2,14 +2,6 @@ import { createAction, props } from '@ngrx/store';
 
 import { Todo } from '../todo/todo.model';
 
-export interface ITodo {
-  getId(): number;
-  getTitle(): string;
-  getDetail(): string;
-  getPosition(): number;
-  getStatus(): string;
-}
-
 // CREATE
 // Local action: create local todo
 export const createTodo = createAction('[Todo Create] Todo Create Page');
@@ -23,7 +15,6 @@ export const createTodoError = createAction(
   '[Todo Create] Todo Create Error',
   props<{ error: string }>()
 );
-
 
 // LOAD
 // Asking local to load for the server and BDD

@@ -29,9 +29,13 @@
       <p *ngIf="todo.position">{{ todo.position }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>Just Do It</button>
-      <button mat-button>CHECK</button>
-      <button mat-button>DONE</button>
+      <button mat-button (click)="changeStatus(todo, 'Handle')">
+        Just Do It
+      </button>
+      <button mat-button (click)="changeStatus(todo, 'Fnished')">
+        Finished
+      </button>
+      <button mat-button (click)="changeStatus(todo, 'Remove')">Remove</button>
       <button mat-button>Detail</button>
     </mat-card-actions>
   </mat-card>

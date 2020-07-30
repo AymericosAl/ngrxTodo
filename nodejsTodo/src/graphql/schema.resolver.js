@@ -2,6 +2,7 @@ import {
   findOneTodo,
   findTodos,
   insertOneTodo,
+  updateOneTodo,
 } from '../datasources/Todo.resolver'
 
 // Todo
@@ -26,5 +27,10 @@ export const mutationTodo = {
     console.log('wow', params)
     todo.username = 'Johnny'
     return await insertOneTodo(todo)
+  },
+  UpdateTodo: async (object, params, ctx, resolveInfo) => {
+    const { todo } = params
+    todo.username = 'Johnny'
+    return await updateOneTodo(todo)
   },
 }

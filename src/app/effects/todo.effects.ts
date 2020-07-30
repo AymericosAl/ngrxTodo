@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, pluck, exhaustMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType, Effect } from '@ngrx/effects';
 import { Subscription } from 'rxjs';
 import { TodoService } from '../service/todo.service';
@@ -22,11 +22,23 @@ export class TodoEffects {
             return TodoActions.loadTodoApollo({ listOfTodos: data });
           }),
           catchError(({ message }) => {
-            console.log(message);
             return of(TodoActions.loadTodoError({ error: message }));
           })
         )
       )
     )
   );
+
+/*
+
+  changeStatus$ = createEffect(() =>
+    this.action$.pipe(
+      ofType(TodoActions.changeStatus),
+      exhaustMap((action) =>
+          TodoActions.loadTodo()
+
+        )
+    )
+  );*/
+
 }
