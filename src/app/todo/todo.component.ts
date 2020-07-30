@@ -25,7 +25,7 @@ export class TodoComponent implements OnInit {
 
   onSubmit(): void {
     this.store.dispatch({
-      type: '[Todo Create] Create',
+      type: '[Todo Create] Todo Create Page',
       title: this.fGTodoCreate.value.title
     });
     this.todoService.createTodo(this.fGTodoCreate.value.title);

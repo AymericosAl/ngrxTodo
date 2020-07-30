@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { Actions, createEffect, ofType, Effect } from '@ngrx/effects';
 import { Subscription } from 'rxjs';
 import { TodoService } from '../service/todo.service';
@@ -11,24 +11,22 @@ import { Todo } from '../todo/todo.model';
 export class TodoEffects {
   loading: boolean;
   todos: Array<Todo> = [];
+  constructor(private action$: Actions, private todoService: TodoService) {}
   loadTodos$ = createEffect(() =>
     this.action$.pipe(
-      ofType(TodoActions.load),
+      ofType(TodoActions.loadTodo),
       mergeMap(() =>
         this.todoService.findTodos().pipe(
           map((data: Todo[]) => {
-            console.log('in', data);
             this.todos = data;
-            return TodoActions.todosApollo({ listOfTodos: data });
+            return TodoActions.loadTodoApollo({ listOfTodos: data });
           }),
           catchError(({ message }) => {
             console.log(message);
-            return of(TodoActions.loadError({ error: message }));
+            return of(TodoActions.loadTodoError({ error: message }));
           })
         )
       )
     )
   );
-
-  constructor(private action$: Actions, private todoService: TodoService) {}
 }
