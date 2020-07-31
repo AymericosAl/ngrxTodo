@@ -90,13 +90,13 @@ export class TodoService {
       .subscribe();
   }
 
-  updateTodo(todo: Todo): void {
-    this.apollo.mutate<ResponseMutation>({
+  updateTodo(todo: Todo): Observable<Todo> {
+    return this.apollo.mutate<ResponseMutation>({
       mutation: documentUpdate,
       variables: {
         todo
       },
-      update: (store, { data }) => {
+     update: (store, { data }) => {
         const todoFromDB = new Todo(data.UpdateTodo._id).setFromBDD(todo);
         // Read the data from our cache for this query.
         const queryCache = store.readQuery<ResponseQuery>({
@@ -110,6 +110,6 @@ export class TodoService {
         // Write our data back to the cache.
         store.writeQuery({ query: FIND_TODOS, data });
       }
-    });
+    }).pipe(map((data) => todo));
   }
 }

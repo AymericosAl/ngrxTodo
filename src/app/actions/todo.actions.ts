@@ -33,9 +33,8 @@ export const loadTodoError = createAction(
 // Local action: Change the state of the Todo => Todo, Finished, Removed, Draft
 export const changeStatus = createAction(
   '[Todo ChangeState] Todo ChangeStatus Page',
-  props<{ status: string }>()
+  props<{ todo: Todo }>()
 );
-
 // Once local Todo new state asked to be saved, response from server
 export const changeStatusApollo = createAction(
   '[Todo ChangeState] Todo ChangeStatus Success',

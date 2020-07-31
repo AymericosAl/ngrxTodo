@@ -12,7 +12,8 @@ export class TodoEffects {
   loading: boolean;
   todos: Array<Todo> = [];
   constructor(private action$: Actions, private todoService: TodoService) {}
-  loadTodos$ = createEffect(() =>
+
+loadTodos$ = createEffect(() =>
     this.action$.pipe(
       ofType(TodoActions.loadTodo),
       mergeMap(() =>
@@ -29,16 +30,19 @@ export class TodoEffects {
     )
   );
 
-/*
+
 
   changeStatus$ = createEffect(() =>
     this.action$.pipe(
       ofType(TodoActions.changeStatus),
-      exhaustMap((action) =>
-          TodoActions.loadTodo()
-
+      exhaustMap((action) => {
+          return this.todoService.updateTodo(action.todo)
+              .pipe(
+                map(result => TodoActions.changeStatusApollo({todo: action.todo})),
+                catchError((err: Error) => of(TodoActions.saveError({error: err.message} )))
+              )
+            })
         )
     )
-  );*/
 
 }

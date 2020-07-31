@@ -44,7 +44,8 @@ export class TodoComponent implements OnInit {
   }
   changeStatus(todo: Todo, status: string): void {
     todo.status = status;
-    this.todoService.updateTodo(todo);
+    this.store.dispatch({ type: '[Todo ChangeState] Todo ChangeStatus Page', todo: todo });
+    //this.todoService.updateTodo(todo);
   }
   ngOnInit(): void {
     this.store.dispatch({ type: '[Todo Load Page] Load Todos' });
